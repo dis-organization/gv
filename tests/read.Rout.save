@@ -1,0 +1,276 @@
+
+R version 3.3.2 (2016-10-31) -- "Sincere Pumpkin Patch"
+Copyright (C) 2016 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> suppressPackageStartupMessages(library(sf))
+> if ("GPKG" %in% st_drivers()$name) {
++ 	tst = st_read(system.file("gpkg/nc.gpkg", package="sf"), "nc.gpkg", crs = 4267, quiet = TRUE)
++ 	tst = st_read(system.file("gpkg/nc.gpkg", package="sf"), quiet = TRUE) # default layer name
++ }
+> 
+> tst = st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE) # no layer specified
+> 
+> # data from https://github.com/edzer/sfr/issues/6
+> tst = st_read(system.file("shape/storms_xyz.shp", package="sf"), quiet = TRUE)
+> class(st_geometry(tst))
+[1] "sfc_LINESTRING" "sfc"           
+> class(st_geometry(tst)[[1]])
+[1] "XYZ"        "LINESTRING" "sfg"       
+> tst = st_read(system.file("shape/storms_xyzm.shp", package="sf"), quiet = TRUE)
+> class(st_geometry(tst))
+[1] "sfc_LINESTRING" "sfc"           
+> class(st_geometry(tst)[[1]])
+[1] "XYM"        "LINESTRING" "sfg"       
+> tst = st_read(system.file("shape/storms_xyz_feature.shp", package="sf"), quiet = TRUE)
+> class(st_geometry(tst))
+[1] "sfc_LINESTRING" "sfc"           
+> class(st_geometry(tst)[[1]])
+[1] "XYZ"        "LINESTRING" "sfg"       
+> tst = st_read(system.file("shape/storms_xyzm_feature.shp", package="sf"), quiet = TRUE)
+> class(st_geometry(tst))
+[1] "sfc_LINESTRING" "sfc"           
+> class(st_geometry(tst)[[1]])
+[1] "XYM"        "LINESTRING" "sfg"       
+> 
+> if ("GPKG" %in% st_drivers()$name) { # read Int64
++     print(st_read(system.file("gpkg/tl.gpkg", package="sf"), quiet = TRUE)$AWATER)
++     print(st_read(system.file("gpkg/tl.gpkg", package="sf"), , quiet = TRUE, int64_as_string = TRUE)$AWATER)
++ }
+[1] 1028678842
+[1] 1028678842
+Levels: 1028678842
+> 
+> # see https://github.com/edzer/sfr/issues/45 :
+> if ("OSM" %in% st_drivers()$name) {
++ 	osm = system.file("osm/overpass.osm", package="sf")
++ 	print(st_layers(osm))
++ 	suppressWarnings(print(st_layers(osm, do_count = TRUE)))
++ 	suppressWarnings(print(st_read(osm, "multipolygons", quiet = TRUE)))
++ }
+Driver: OSM 
+Available layers:
+        layer_name       geometry_type features fields
+1           points               Point       NA     10
+2            lines         Line String       NA      9
+3 multilinestrings   Multi Line String       NA      4
+4    multipolygons       Multi Polygon       NA     25
+5  other_relations Geometry Collection       NA      4
+Driver: OSM 
+Available layers:
+        layer_name       geometry_type features fields
+1           points               Point        0     10
+2            lines         Line String        0      9
+3 multilinestrings   Multi Line String        0      4
+4    multipolygons       Multi Polygon        3     25
+5  other_relations Geometry Collection        0      4
+Simple feature collection with 3 features and 25 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -1.556254 ymin: 53.79519 xmax: -1.550716 ymax: 53.80341
+epsg (SRID):    4326
+proj4string:    +proj=longlat +datum=WGS84 +no_defs
+  osm_id osm_way_id name type aeroway amenity admin_level barrier boundary
+1   <NA>  263958111 <NA> <NA>    <NA>    <NA>        <NA>    <NA>     <NA>
+2   <NA>  301461256 <NA> <NA>    <NA>    <NA>        <NA>    <NA>     <NA>
+3   <NA>  462227487 <NA> <NA>    <NA>    <NA>        <NA>    <NA>     <NA>
+  building craft geological historic land_area landuse leisure man_made
+1     <NA>  <NA>       <NA>     <NA>      <NA>    <NA>    park     <NA>
+2     <NA>  <NA>       <NA>     <NA>      <NA>    <NA>    park     <NA>
+3     <NA>  <NA>       <NA>     <NA>      <NA>    <NA>    park     <NA>
+  military natural office place shop sport tourism other_tags
+1     <NA>    <NA>   <NA>  <NA> <NA>  <NA>    <NA>       <NA>
+2     <NA>    <NA>   <NA>  <NA> <NA>  <NA>    <NA>       <NA>
+3     <NA>    <NA>   <NA>  <NA> <NA>  <NA>    <NA>       <NA>
+                        geometry
+1 MULTIPOLYGON(((-1.5507185 5...
+2 MULTIPOLYGON(((-1.5557631 5...
+3 MULTIPOLYGON(((-1.551502 53...
+> 
+> # layer opening option:
+> st_read(system.file("shape/nc.shp", package="sf"),  quiet = TRUE,
++ 	options = c("ADJUST_TYPE=YES", "ENCODING=CPL_ENC_UTF8"))
+Simple feature collection with 100 features and 14 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965
+epsg (SRID):    4267
+proj4string:    +proj=longlat +datum=NAD27 +no_defs
+First 20 features:
+    AREA PERIMETER CNTY_ CNTY_ID        NAME  FIPS FIPSNO CRESS_ID BIR74 SID74
+1  0.114     1.442  1825    1825        Ashe 37009  37009        5  1091     1
+2  0.061     1.231  1827    1827   Alleghany 37005  37005        3   487     0
+3  0.143     1.630  1828    1828       Surry 37171  37171       86  3188     5
+4  0.070     2.968  1831    1831   Currituck 37053  37053       27   508     1
+5  0.153     2.206  1832    1832 Northampton 37131  37131       66  1421     9
+6  0.097     1.670  1833    1833    Hertford 37091  37091       46  1452     7
+7  0.062     1.547  1834    1834      Camden 37029  37029       15   286     0
+8  0.091     1.284  1835    1835       Gates 37073  37073       37   420     0
+9  0.118     1.421  1836    1836      Warren 37185  37185       93   968     4
+10 0.124     1.428  1837    1837      Stokes 37169  37169       85  1612     1
+11 0.114     1.352  1838    1838     Caswell 37033  37033       17  1035     2
+12 0.153     1.616  1839    1839  Rockingham 37157  37157       79  4449    16
+13 0.143     1.663  1840    1840   Granville 37077  37077       39  1671     4
+14 0.109     1.325  1841    1841      Person 37145  37145       73  1556     4
+15 0.072     1.085  1842    1842       Vance 37181  37181       91  2180     4
+16 0.190     2.204  1846    1846     Halifax 37083  37083       42  3608    18
+17 0.053     1.171  1848    1848  Pasquotank 37139  37139       70  1638     3
+18 0.199     1.984  1874    1874      Wilkes 37193  37193       97  3146     4
+19 0.081     1.288  1880    1880     Watauga 37189  37189       95  1323     1
+20 0.063     1.000  1881    1881  Perquimans 37143  37143       72   484     1
+   NWBIR74 BIR79 SID79 NWBIR79                       geometry
+1       10  1364     0      19 MULTIPOLYGON(((-81.47275543...
+2       10   542     3      12 MULTIPOLYGON(((-81.23989105...
+3      208  3616     6     260 MULTIPOLYGON(((-80.45634460...
+4      123   830     2     145 MULTIPOLYGON(((-76.00897216...
+5     1066  1606     3    1197 MULTIPOLYGON(((-77.21766662...
+6      954  1838     5    1237 MULTIPOLYGON(((-76.74506378...
+7      115   350     2     139 MULTIPOLYGON(((-76.00897216...
+8      254   594     2     371 MULTIPOLYGON(((-76.56250762...
+9      748  1190     2     844 MULTIPOLYGON(((-78.30876159...
+10     160  2038     5     176 MULTIPOLYGON(((-80.02567291...
+11     550  1253     2     597 MULTIPOLYGON(((-79.53050994...
+12    1243  5386     5    1369 MULTIPOLYGON(((-79.53050994...
+13     930  2074     4    1058 MULTIPOLYGON(((-78.74912261...
+14     613  1790     4     650 MULTIPOLYGON(((-78.80680084...
+15    1179  2753     6    1492 MULTIPOLYGON(((-78.49252319...
+16    2365  4463    17    2980 MULTIPOLYGON(((-77.33220672...
+17     622  2275     4     933 MULTIPOLYGON(((-76.29892730...
+18     200  3725     7     222 MULTIPOLYGON(((-81.02056884...
+19      17  1775     1      33 MULTIPOLYGON(((-81.80622100...
+20     230   676     0     310 MULTIPOLYGON(((-76.48052978...
+> 
+> if ("GPKG" %in% st_drivers()$name) { # shapefiles can't write point+multipoint mix:
++   x <- st_sf(a = 1:2, geom = st_sfc(st_point(0:1), st_multipoint(matrix(1:4,2,2))))
++   st_write(x, "x.gpkg")
++   write_sf(x, "x.gpkg")
++   x <- st_read("x.gpkg", quiet = TRUE)
++   print(x)
++ }
+Writing layer `x.gpkg' to data source `x.gpkg' using driver `GPKG'
+features:       2
+fields:         1
+geometry type:  Unknown (any)
+Writing layer `x.gpkg' to data source `/home/edzer/git/sf.Rcheck/tests/x.gpkg' using driver `GPKG'
+features:       2
+fields:         1
+geometry type:  Unknown (any)
+Simple feature collection with 2 features and 1 field
+geometry type:  MULTIPOINT
+dimension:      XY
+bbox:           xmin: 0 ymin: 1 xmax: 2 ymax: 4
+epsg (SRID):    NA
+proj4string:    NA
+  a                 geom
+1 1      MULTIPOINT(0 1)
+2 2 MULTIPOINT(1 3, 2 4)
+> x <- st_sf(a = 1:2, geom = st_sfc(st_linestring(matrix(1:4,2,2)), 
++ 	st_multilinestring(list(matrix(1:4,2,2), matrix(10:13,2,2)))))
+> st_write(x, "x.shp")
+Writing layer `x.shp' to data source `x.shp' using driver `ESRI Shapefile'
+features:       2
+fields:         1
+geometry type:  Unknown (any)
+> x <- st_read("x.shp", quiet = TRUE)
+> x
+Simple feature collection with 2 features and 1 field
+geometry type:  MULTILINESTRING
+dimension:      XY
+bbox:           xmin: 1 ymin: 3 xmax: 11 ymax: 13
+epsg (SRID):    NA
+proj4string:    NA
+  a                       geometry
+1 1    MULTILINESTRING((1 3, 2 4))
+2 2 MULTILINESTRING((1 3, 2 4),...
+> x <- read_sf("x.shp", quiet = TRUE)
+> 
+> try(st_layers("foo")) # cannot open datasource
+Cannot open data source foo
+Error in CPL_get_layers(dsn, options, do_count) : Open failed.
+
+> try(st_read("foo")) # cannot open datasource
+Cannot open data source foo
+Error in CPL_read_ogr(dsn, layer, as.character(options), quiet, iGeomField -  : 
+  Open failed.
+
+> try(st_read("x.gpkg", "foo")) # cannot open layer
+Cannot open layer foo
+Error in CPL_read_ogr(dsn, layer, as.character(options), quiet, iGeomField -  : 
+  Opening layer failed.
+
+> try(st_write(c("foo", "bar")))
+Error : inherits(obj, "sf") is not TRUE
+> try(st_write(x, c("foo", "bar")))
+Error : length(dsn) == 1 is not TRUE
+In addition: Warning message:
+In if (file.exists(dsn)) dsn = normalizePath(dsn) :
+  the condition has length > 1 and only the first element will be used
+> try(st_write(x, "foo", driver = "foo"))
+foo driver not available.
+Error in CPL_write_ogr(obj, dsn, layer, driver, as.character(dataset_options),  : 
+  Driver not available.
+
+> try(st_write(x, "/x", driver = "ESRI Shapefile"))
+Writing layer `x' to data source `/x' using driver `ESRI Shapefile'
+Creation of dataset /x failed.
+Error in CPL_write_ogr(obj, dsn, layer, driver, as.character(dataset_options),  : 
+  Creation failed.
+
+In addition: Warning message:
+In CPL_write_ogr(obj, dsn, layer, driver, as.character(dataset_options),  :
+  GDAL Error 1: Failed to create directory /x
+for shapefile datastore.
+
+> 
+> library(sf)
+> #> Linking to GEOS 3.5.0, GDAL 2.1.1, proj.4 4.9.3
+> 
+> df <- data.frame(
++     a = c(0, 1, NA, -Inf, Inf),
++     b = c("a", "b", NA, "c", ""),
++     c = c(as.Date("2001-01-01"), NA, -99, 0, 1),
++     d = c(as.POSIXct("2001-01-01"), NA, -99, 0, 1),
++     x = 1:5,
++     y = 1:5)
+> 
+> x  = st_as_sf(df, coords = c("x", "y"))
+> 
+> if ("GPKG" %in% st_drivers()$name) {
++  st_write(x, "x2.gpkg", quiet = TRUE)
++  y = st_read("x2.gpkg", quiet = TRUE)
++  print(y)
++ }
+Simple feature collection with 5 features and 4 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: 1 ymin: 1 xmax: 5 ymax: 5
+epsg (SRID):    NA
+proj4string:    NA
+     a    b          c                   d       geom
+1    0    a 2001-01-01 2001-01-01 00:00:00 POINT(1 1)
+2    1    b       <NA>                <NA> POINT(2 2)
+3   NA <NA> 1969-09-24 1970-01-01 00:58:21 POINT(3 3)
+4 -Inf    c 1970-01-01 1970-01-01 01:00:00 POINT(4 4)
+5  Inf      1970-01-02 1970-01-01 01:00:01 POINT(5 5)
+> 
+> try(st_write(x, "x.shp", driver = character(0))) # err
+driver, dsn or layer unspecified
+Error in CPL_write_ogr(obj, dsn, layer, driver, as.character(dataset_options),  : 
+  Driver unspecified.
+
+> 
+> proc.time()
+   user  system elapsed 
+  0.568   0.040   0.610 

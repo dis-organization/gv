@@ -1,0 +1,48 @@
+Package: sf
+Version: 0.0.1
+Title: Read Simple Features for R
+Description: Read simple features.
+Authors@R: c(person("Edzer", "Pebesma", role = c("ctb")),
+	person("Roger", "Bivand", role = "ctb"),
+	person("Ian", "Cook", role = "ctb"),
+	person("Tim", "Keitt", role = "ctb"),
+	person("Michael", "Sumner", role = c("aut", "cre"), email = "mdsumner@gmail.com"),
+	person("Robin", "Lovelace", role = "ctb"),
+	person("Hadley", "Wickham", role = "ctb"),
+	person("Jeroen", "Ooms", role = "ctb"),
+	person("Etienne", "Racine", role = "ctb")
+	)
+Depends:
+    R (>= 3.3.0)
+Imports:
+    utils,
+    stats,
+    tools,
+    graphics,
+    grDevices,
+    grid,
+    methods,
+    Rcpp,
+    DBI,
+    units (>= 0.4)
+Suggests:
+    sp (>= 1.2-4),
+    rgeos,
+    rgdal,
+    RPostgreSQL,
+    testthat,
+    knitr,
+    tibble,
+    dplyr,
+    tidyr,
+    geosphere (>= 1.5-5),
+    maptools,
+    maps,
+    microbenchmark
+LinkingTo: Rcpp
+VignetteBuilder: knitr
+SystemRequirements: GDAL (>= 2.0.0), GEOS (>= 3.3.0), PROJ.4 (>= 4.8.0)
+License: GPL-2 | MIT + file LICENSE
+URL: https://github.com/r-gris/gv
+BugReports: https://github.com/r-gris/gv/issues/
+RoxygenNote: 5.0.1
