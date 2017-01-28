@@ -81,42 +81,6 @@ CPL_write_ogr <- function(obj, dsn, layer, driver, dco, lco, geom, dim, quiet = 
     invisible(.Call('sf_CPL_write_ogr', PACKAGE = 'sf', obj, dsn, layer, driver, dco, lco, geom, dim, quiet))
 }
 
-CPL_geos_binop <- function(sfc0, sfc1, op, par = 0.0, sparse = TRUE) {
-    .Call('sf_CPL_geos_binop', PACKAGE = 'sf', sfc0, sfc1, op, par, sparse)
-}
-
-CPL_geos_is_valid <- function(sfc) {
-    .Call('sf_CPL_geos_is_valid', PACKAGE = 'sf', sfc)
-}
-
-CPL_geos_is_simple <- function(sfc) {
-    .Call('sf_CPL_geos_is_simple', PACKAGE = 'sf', sfc)
-}
-
-CPL_geos_union <- function(sfc, by_feature = FALSE) {
-    .Call('sf_CPL_geos_union', PACKAGE = 'sf', sfc, by_feature)
-}
-
-CPL_geos_op <- function(op, sfc, bufferDist = 0.0, nQuadSegs = 30L, dTolerance = 0.0, preserveTopology = FALSE, bOnlyEdges = 1L, dfMaxLength = 0.0) {
-    .Call('sf_CPL_geos_op', PACKAGE = 'sf', op, sfc, bufferDist, nQuadSegs, dTolerance, preserveTopology, bOnlyEdges, dfMaxLength)
-}
-
-CPL_geos_op2 <- function(op, sfcx, sfcy) {
-    .Call('sf_CPL_geos_op2', PACKAGE = 'sf', op, sfcx, sfcy)
-}
-
-CPL_geos_version <- function(b = FALSE) {
-    .Call('sf_CPL_geos_version', PACKAGE = 'sf', b)
-}
-
-CPL_geos_dist <- function(sfc0, sfc1) {
-    .Call('sf_CPL_geos_dist', PACKAGE = 'sf', sfc0, sfc1)
-}
-
-CPL_geos_relate <- function(sfc0, sfc1) {
-    .Call('sf_CPL_geos_relate', PACKAGE = 'sf', sfc0, sfc1)
-}
-
 CPL_proj_version <- function(b = FALSE) {
     .Call('sf_CPL_proj_version', PACKAGE = 'sf', b)
 }

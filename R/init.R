@@ -47,10 +47,10 @@ setOldClass("sfg")
 	}
 }
 
-.onAttach = function(libname, pkgname) {
-	packageStartupMessage(paste0("Linking to GEOS ", CPL_geos_version(), ", GDAL ", 
-		CPL_gdal_version(), ", proj.4 ", CPL_proj_version()))
-}
+#.onAttach = function(libname, pkgname) {
+#	packageStartupMessage(paste0("Linking to GEOS ", CPL_geos_version(), ", GDAL ", 
+#		CPL_gdal_version(), ", proj.4 ", CPL_proj_version()))
+#}
 
 #' Provide the external dependencies versions of the libraries linked to sf
 #' 

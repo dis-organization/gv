@@ -1,0 +1,17 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+src/*.o
+src/*.so
+src/*.dll
+src/Makevars
+config.log
+config.status
+
+windows/
+inst/gdal/
+inst/proj/
+
+nc*
