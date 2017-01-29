@@ -8,7 +8,7 @@
 #' @importFrom DBI dbConnect dbDisconnect dbWriteTable dbGetQuery dbSendQuery dbReadTable
 #' @importFrom units make_unit
 #' @importFrom grDevices rgb
-#' @useDynLib sf
+#' @useDynLib gv
 NULL
 
 setOldClass("sf")
@@ -24,13 +24,13 @@ setOldClass("sfg")
 .sf_cache <- new.env(FALSE, parent=globalenv())
 
 .onLoad = function(libname, pkgname) {
-	if (file.exists(system.file("proj/nad.lst", package = "sf")[1])) {
+	if (file.exists(system.file("proj/nad.lst", package = "gv")[1])) {
 		# nocov start
   		assign(".sf.PROJ_LIB", Sys.getenv("PROJ_LIB"), envir=.sf_cache)
-		prj = system.file("proj", package = "sf")[1]
+		prj = system.file("proj", package = "gv")[1]
 		Sys.setenv("PROJ_LIB" = prj)
 		assign(".sf.GDAL_DATA", Sys.getenv("GDAL_DATA"), envir=.sf_cache)
-		gdl = system.file("gdal", package = "sf")[1]
+		gdl = system.file("gdal", package = "gv")[1]
 		Sys.setenv("GDAL_DATA" = gdl)
 		# nocov end
 	}
@@ -39,7 +39,7 @@ setOldClass("sfg")
 
 .onUnload = function(libname, pkgname) {
 	CPL_gdal_cleanup_all()
-	if (file.exists(system.file("proj/nad.lst", package = "sf")[1])) {
+	if (file.exists(system.file("proj/nad.lst", package = "gv")[1])) {
 		# nocov start
 		Sys.setenv("PROJ_LIB"=get(".sf.PROJ_LIB", envir=.sf_cache))
 		Sys.setenv("GDAL_DATA"=get(".sf.GDAL_DATA", envir=.sf_cache))

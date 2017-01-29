@@ -4,6 +4,11 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+[![Travis-CI Build Status](https://travis-ci.org/mdsumner/gv.svg?branch=master)](https://travis-ci.org/mdsumner/gv)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mdsumner/gv?branch=master&svg=true)](https://ci.appveyor.com/project/mdsumner/gv)
+
+[![Coverage Status](https://img.shields.io/codecov/c/github/mdsumner/gv/master.svg)](https://codecov.io/github/mdsumner/gv?branch=master)
+
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,

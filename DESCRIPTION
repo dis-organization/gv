@@ -1,6 +1,6 @@
-Package: sf
+Package: gv
 Version: 0.0.1
-Title: Read Simple Features for R
+Title: Read Simple Features (GDAL Core)
 Description: Read simple features.
 Authors@R: c(person("Edzer", "Pebesma", role = c("ctb")),
 	person("Roger", "Bivand", role = "ctb"),
