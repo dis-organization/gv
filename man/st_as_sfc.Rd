@@ -2,26 +2,31 @@
 % Please edit documentation in R/sp.R, R/wkb.R, R/wkt.R
 \name{st_as_sfc}
 \alias{st_as_sfc}
-\alias{st_as_sfc.SpatialLines}
-\alias{st_as_sfc.SpatialMultiPoints}
-\alias{st_as_sfc.SpatialPixels}
-\alias{st_as_sfc.SpatialPoints}
-\alias{st_as_sfc.SpatialPolygons}
 \alias{st_as_sfc.WKB}
 \alias{st_as_sfc.character}
-\title{Convert foreign geometry object to an sfc object}
+\title{## Method coordinates
+## @name coordinates
+## @exportMethod coordinates
+#if (!isGeneric("coordinates"))
+#    setGeneric("coordinates", function(obj, ...)
+#		standardGeneric("coordinates"))
+#
+#setMethod("coordinates", "sfc_POINT",
+#	function(obj, ...)
+#		do.call(rbind, obj)
+#)
+#
+#setMethod("coordinates", "sfc",
+#	function(obj, ...)
+#		stop("coordinates for this object type not implemented")
+#)
+#
+#setMethod("coordinates", "sf",
+#	function(obj, ...)
+#		coordinates(st_geometry(obj), ...)
+#)}
 \usage{
 st_as_sfc(x, ...)
-
-\method{st_as_sfc}{SpatialPoints}(x, ...)
-
-\method{st_as_sfc}{SpatialPixels}(x, ...)
-
-\method{st_as_sfc}{SpatialMultiPoints}(x, ...)
-
-\method{st_as_sfc}{SpatialLines}(x, ..., forceMulti = FALSE)
-
-\method{st_as_sfc}{SpatialPolygons}(x, ..., forceMulti = FALSE)
 
 \method{st_as_sfc}{WKB}(x, ..., EWKB = FALSE, pureR = FALSE,
   crs = NA_crs_)
@@ -33,18 +38,70 @@ st_as_sfc(x, ...)
 
 \item{...}{further arguments}
 
-\item{forceMulti}{logical; if \code{TRUE}, force coercion into \code{MULTIPOLYGON} or \code{MULTILINE} objects, else autodetect}
-
 \item{EWKB}{logical; if TRUE, parse as EWKB (PostGIS: ST_AsEWKB), otherwise as ISO WKB (PostGIS: ST_AsBinary)}
 
 \item{pureR}{logical; if TRUE, use only R code, if FALSE, use compiled (C++) code; use TRUE when the endian-ness of the binary differs from the host machine (\code{.Platform$endian}).}
 
 \item{crs}{integer or character; coordinate reference system for the geometry, see \link{st_crs}}
+
+\item{forceMulti}{logical; if \code{TRUE}, force coercion into \code{MULTIPOLYGON} or \code{MULTILINE} objects, else autodetect}
 }
 \description{
+#' @name st_as_sf
+#' @examples
+#' library(sp)
+#' x = rbind(c(-1,-1), c(1,-1), c(1,1), c(-1,1), c(-1,-1))
+#' x1 = 0.1 * x + 0.1
+#' x2 = 0.1 * x + 0.4
+#' x3 = 0.1 * x + 0.7
+#' y = x + 3
+#' y1 = x1 + 3
+#' y3 = x3 + 3
+#' m = matrix(c(3, 0), 5, 2, byrow = TRUE)
+#' z = x + m
+#' z1 = x1 + m
+#' z2 = x2 + m
+#' z3 = x3 + m
+#' p1 = Polygons(list( Polygon(x[5:1,]), Polygon(x2), Polygon(x3), 
+#'    Polygon(y[5:1,]), Polygon(y1), Polygon(x1), Polygon(y3)), "ID1")
+#' p2 = Polygons(list( Polygon(z[5:1,]), Polygon(z2), Polygon(z3), Polygon(z1)),
+#'   "ID2")
+#' if (require("rgeos")) {
+#'   r = createSPComment(SpatialPolygons(list(p1,p2)))
+#'   comment(r)
+#'   comment(r@polygons[[1]])
+#'   scan(text = comment(r@polygons[[1]]), quiet = TRUE)
+#'   library(sf)
+#'   a = st_as_sf(r)
+#'   summary(a)
+#' }
+#' demo(meuse, ask = FALSE, echo = FALSE)
+#' summary(st_as_sf(meuse))
+#' summary(st_as_sf(meuse.grid))
+#' summary(st_as_sf(meuse.area))
+#' summary(st_as_sf(meuse.riv))
+#' summary(st_as_sf(as(meuse.riv, "SpatialLines")))
+#' pol.grd = as(meuse.grid, "SpatialPolygonsDataFrame")
+#' summary(st_as_sf(pol.grd))
+#' summary(st_as_sf(as(pol.grd, "SpatialLinesDataFrame")))
+#' @export
+st_as_sf.Spatial = function(x, ...) {
+	if ("data" %in% slotNames(x))
+		df = x@data
+	else 
+		df = data.frame(row.names = row.names(x)) # empty
+	if ("geometry" %in% names(df))
+		warning("column \"geometry\" will be overwritten by geometry column")
+	if (!requireNamespace("sp", quietly = TRUE))
+		stop("package sp required, please install it first")
+	df$geometry = st_as_sfc(sp::geometry(x), ...)
+	st_as_sf(df)
+}
 Convert foreign geometry object to an sfc object
 }
 \details{
+Convert foreign geometry object to an sfc object
+
 when converting from WKB, the object \code{x} is either a character vector such as typically obtained from PostGIS (either with leading "0x" or without), or a list with raw vectors representing the features in binary (raw) form.
 
 if \code{x} is a character vector, it should be a vector containing the well-known-text representations of a single geometry for each vector element

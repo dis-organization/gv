@@ -26,18 +26,13 @@ Imports:
     DBI,
     units (>= 0.4)
 Suggests:
-    sp (>= 1.2-4),
-    rgeos,
     rgdal,
-    RPostgreSQL,
     testthat,
     knitr,
     tibble,
     dplyr,
     tidyr,
     geosphere (>= 1.5-5),
-    maptools,
-    maps,
     microbenchmark
 LinkingTo: Rcpp
 VignetteBuilder: knitr

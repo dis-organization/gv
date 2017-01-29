@@ -41,4 +41,7 @@ x <-  sf:::gv(dsn)
 
 We need "agr.R", "sf.r" and "sp.R".
 
-nc &lt;- st\_read(system.file("shape/nc.shp", package="sf")) Reading layer `nc' from data source`/perm\_storage/home/mdsumner/R/x86\_64-pc-linux-gnu-library/3.3/sf/shape/nc.shp' using driver \`ESRI Shapefile' converted into: MULTIPOLYGON Error in st\_sf(x, ..., agr = agr) : object 'NA\_agr\_' not found
+    nc <- st_read(system.file("shape/nc.shp", package="sf"))
+    Reading layer `nc' from data source `/perm_storage/home/mdsumner/R/x86_64-pc-linux-gnu-library/3.3/sf/shape/nc.shp' using driver `ESRI Shapefile'
+    converted into: MULTIPOLYGON
+    Error in st_sf(x, ..., agr = agr) : object 'NA_agr_' not found
