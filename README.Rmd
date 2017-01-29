@@ -28,7 +28,7 @@ a <- sf::st_sfc(sf:::CPL_sfc_from_wkt(mls))
 
 ```
 
-We need "agr.R"
+We need "agr.R", "sf.r" and "sp.R". 
 
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 Reading layer `nc' from data source `/perm_storage/home/mdsumner/R/x86_64-pc-linux-gnu-library/3.3/sf/shape/nc.shp' using driver `ESRI Shapefile'

@@ -77,6 +77,10 @@ CPL_read_ogr <- function(datasource, layer, options, quiet = FALSE, iGeomField =
     .Call('sf_CPL_read_ogr', PACKAGE = 'sf', datasource, layer, options, quiet, iGeomField, toTypeUser, promote_to_multi, int64_as_string)
 }
 
+CPL_read_vector <- function(datasource, layer, options, quiet = FALSE, iGeomField = 0L, toTypeUser = 0L, promote_to_multi = TRUE, int64_as_string = FALSE) {
+    .Call('sf_CPL_read_vector', PACKAGE = 'sf', datasource, layer, options, quiet, iGeomField, toTypeUser, promote_to_multi, int64_as_string)
+}
+
 CPL_write_ogr <- function(obj, dsn, layer, driver, dco, lco, geom, dim, quiet = FALSE) {
     invisible(.Call('sf_CPL_write_ogr', PACKAGE = 'sf', obj, dsn, layer, driver, dco, lco, geom, dim, quiet))
 }
