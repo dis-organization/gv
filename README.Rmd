@@ -46,3 +46,4 @@ Error in st_sf(x, ..., agr = agr) : object 'NA_agr_' not found
 
 We need sp.R for st_as_sfc generic. 
 
+op st_intersects is a problem, so will have to hack the slice [

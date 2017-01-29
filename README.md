@@ -45,3 +45,7 @@ We need "agr.R", "sf.r" and "sp.R".
     Reading layer `nc' from data source `/perm_storage/home/mdsumner/R/x86_64-pc-linux-gnu-library/3.3/sf/shape/nc.shp' using driver `ESRI Shapefile'
     converted into: MULTIPOLYGON
     Error in st_sf(x, ..., agr = agr) : object 'NA_agr_' not found
+
+We need sp.R for st\_as\_sfc generic.
+
+op st\_intersects is a problem, so will have to hack the slice \[

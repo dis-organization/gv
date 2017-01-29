@@ -5,6 +5,42 @@ CPL_get_bbox <- function(sf, depth = 0L) {
     .Call('gv_CPL_get_bbox', PACKAGE = 'gv', sf, depth)
 }
 
+CPL_area <- function(sfc) {
+    .Call('gv_CPL_area', PACKAGE = 'gv', sfc)
+}
+
+CPL_gdal_dimension <- function(sfc, NA_if_empty = TRUE) {
+    .Call('gv_CPL_gdal_dimension', PACKAGE = 'gv', sfc, NA_if_empty)
+}
+
+CPL_length <- function(sfc) {
+    .Call('gv_CPL_length', PACKAGE = 'gv', sfc)
+}
+
+CPL_gdal_segmentize <- function(sfc, dfMaxLength = 0.0) {
+    .Call('gv_CPL_gdal_segmentize', PACKAGE = 'gv', sfc, dfMaxLength)
+}
+
+CPL_gdal_linestring_sample <- function(sfc, distLst) {
+    .Call('gv_CPL_gdal_linestring_sample', PACKAGE = 'gv', sfc, distLst)
+}
+
+CPL_get_layers <- function(datasource, options, do_count = FALSE) {
+    .Call('gv_CPL_get_layers', PACKAGE = 'gv', datasource, options, do_count)
+}
+
+CPL_read_ogr <- function(datasource, layer, options, quiet = FALSE, iGeomField = 0L, toTypeUser = 0L, promote_to_multi = TRUE, int64_as_string = FALSE) {
+    .Call('gv_CPL_read_ogr', PACKAGE = 'gv', datasource, layer, options, quiet, iGeomField, toTypeUser, promote_to_multi, int64_as_string)
+}
+
+CPL_read_vector <- function(datasource, layer, options, quiet = FALSE, iGeomField = 0L, toTypeUser = 0L, promote_to_multi = TRUE, int64_as_string = FALSE) {
+    .Call('gv_CPL_read_vector', PACKAGE = 'gv', datasource, layer, options, quiet, iGeomField, toTypeUser, promote_to_multi, int64_as_string)
+}
+
+CPL_write_ogr <- function(obj, dsn, layer, driver, dco, lco, geom, dim, quiet = FALSE) {
+    invisible(.Call('gv_CPL_write_ogr', PACKAGE = 'gv', obj, dsn, layer, driver, dco, lco, geom, dim, quiet))
+}
+
 CPL_gdal_init <- function() {
     invisible(.Call('gv_CPL_gdal_init', PACKAGE = 'gv'))
 }
@@ -47,42 +83,6 @@ CPL_get_rgdal_drivers <- function(dummy) {
 
 CPL_sfc_from_wkt <- function(wkt) {
     .Call('gv_CPL_sfc_from_wkt', PACKAGE = 'gv', wkt)
-}
-
-CPL_area <- function(sfc) {
-    .Call('gv_CPL_area', PACKAGE = 'gv', sfc)
-}
-
-CPL_gdal_dimension <- function(sfc, NA_if_empty = TRUE) {
-    .Call('gv_CPL_gdal_dimension', PACKAGE = 'gv', sfc, NA_if_empty)
-}
-
-CPL_length <- function(sfc) {
-    .Call('gv_CPL_length', PACKAGE = 'gv', sfc)
-}
-
-CPL_gdal_segmentize <- function(sfc, dfMaxLength = 0.0) {
-    .Call('gv_CPL_gdal_segmentize', PACKAGE = 'gv', sfc, dfMaxLength)
-}
-
-CPL_gdal_linestring_sample <- function(sfc, distLst) {
-    .Call('gv_CPL_gdal_linestring_sample', PACKAGE = 'gv', sfc, distLst)
-}
-
-CPL_get_layers <- function(datasource, options, do_count = FALSE) {
-    .Call('gv_CPL_get_layers', PACKAGE = 'gv', datasource, options, do_count)
-}
-
-CPL_read_ogr <- function(datasource, layer, options, quiet = FALSE, iGeomField = 0L, toTypeUser = 0L, promote_to_multi = TRUE, int64_as_string = FALSE) {
-    .Call('gv_CPL_read_ogr', PACKAGE = 'gv', datasource, layer, options, quiet, iGeomField, toTypeUser, promote_to_multi, int64_as_string)
-}
-
-CPL_read_vector <- function(datasource, layer, options, quiet = FALSE, iGeomField = 0L, toTypeUser = 0L, promote_to_multi = TRUE, int64_as_string = FALSE) {
-    .Call('gv_CPL_read_vector', PACKAGE = 'gv', datasource, layer, options, quiet, iGeomField, toTypeUser, promote_to_multi, int64_as_string)
-}
-
-CPL_write_ogr <- function(obj, dsn, layer, driver, dco, lco, geom, dim, quiet = FALSE) {
-    invisible(.Call('gv_CPL_write_ogr', PACKAGE = 'gv', obj, dsn, layer, driver, dco, lco, geom, dim, quiet))
 }
 
 CPL_proj_version <- function(b = FALSE) {
