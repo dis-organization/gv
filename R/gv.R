@@ -3,6 +3,8 @@ gv <- function(dsn, layer = 1L, ..., options = NULL, quiet = TRUE, iGeomField = 
   if (!is.character(layer)) {
    layer <- sf:::st_layers(dsn, options = as.character(options))$name[layer]
   }
-  CPL_read_ogr(dsn, layer, as.character(options), quiet, iGeomField - 1L, type, 
+  CPL_read_vector(dsn, layer, as.character(options), quiet, iGeomField - 1L, type, 
                    promote_to_multi, int64_as_string)
 }
+
+

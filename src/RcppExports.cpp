@@ -225,6 +225,24 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// CPL_read_vector
+Rcpp::List CPL_read_vector(Rcpp::CharacterVector datasource, Rcpp::CharacterVector layer, Rcpp::CharacterVector options, bool quiet, int iGeomField, int toTypeUser, bool promote_to_multi, bool int64_as_string);
+RcppExport SEXP sf_CPL_read_vector(SEXP datasourceSEXP, SEXP layerSEXP, SEXP optionsSEXP, SEXP quietSEXP, SEXP iGeomFieldSEXP, SEXP toTypeUserSEXP, SEXP promote_to_multiSEXP, SEXP int64_as_stringSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type datasource(datasourceSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type layer(layerSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type options(optionsSEXP);
+    Rcpp::traits::input_parameter< bool >::type quiet(quietSEXP);
+    Rcpp::traits::input_parameter< int >::type iGeomField(iGeomFieldSEXP);
+    Rcpp::traits::input_parameter< int >::type toTypeUser(toTypeUserSEXP);
+    Rcpp::traits::input_parameter< bool >::type promote_to_multi(promote_to_multiSEXP);
+    Rcpp::traits::input_parameter< bool >::type int64_as_string(int64_as_stringSEXP);
+    rcpp_result_gen = Rcpp::wrap(CPL_read_vector(datasource, layer, options, quiet, iGeomField, toTypeUser, promote_to_multi, int64_as_string));
+    return rcpp_result_gen;
+END_RCPP
+}
 // CPL_write_ogr
 void CPL_write_ogr(Rcpp::List obj, Rcpp::CharacterVector dsn, Rcpp::CharacterVector layer, Rcpp::CharacterVector driver, Rcpp::CharacterVector dco, Rcpp::CharacterVector lco, Rcpp::List geom, Rcpp::CharacterVector dim, bool quiet);
 RcppExport SEXP sf_CPL_write_ogr(SEXP objSEXP, SEXP dsnSEXP, SEXP layerSEXP, SEXP driverSEXP, SEXP dcoSEXP, SEXP lcoSEXP, SEXP geomSEXP, SEXP dimSEXP, SEXP quietSEXP) {

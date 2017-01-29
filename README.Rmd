@@ -16,7 +16,8 @@ forked from sf 49504352e685702ee749a042e26476fc91b66014 2017-01-28
 
 ```{r}
 library(sf)
-nc <- st_read(system.file("shape/nc.shp", package="sf"))
+dsn <- system.file("shape/nc.shp", package="sf")
+nc <- st_read(dsn)
 
 wkt <- readLines(system.file("shape/nc.prj", package = "sf"))
 sf:::CPL_crs_from_wkt(wkt)
@@ -24,7 +25,7 @@ sf:::CPL_crs_from_wkt(wkt)
 mls <- "POINT (20 30)"
 a <- sf::st_sfc(sf:::CPL_sfc_from_wkt(mls))
 
-
+x <-  sf:::gv(dsn)
 
 ```
 
