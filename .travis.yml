@@ -23,6 +23,7 @@ before_install:
   - createdb empty
   - psql -d empty -c "CREATE EXTENSION postgis;"
 
+
 warnings_are_errors: true
 
 r_packages:
