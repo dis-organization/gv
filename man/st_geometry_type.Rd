@@ -2,7 +2,10 @@
 % Please edit documentation in R/sfc.R
 \name{st_geometry_type}
 \alias{st_geometry_type}
-\title{Return geometry type of an object}
+\title{#' @name st_geometry
+#' @export
+st_geometry.sfc = function(obj, ...) obj
+Return geometry type of an object}
 \usage{
 st_geometry_type(x)
 }
